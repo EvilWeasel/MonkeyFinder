@@ -1,4 +1,5 @@
-﻿using MonkeyFinder.Model;
+﻿using CommunityToolkit.Mvvm.Input;
+using MonkeyFinder.Model;
 using MonkeyFinder.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -9,16 +10,12 @@ public partial class MonkeyViewModel : BaseViewModel
   private MonkeyService monkeyService = new();
   public ObservableCollection<Monkey> Monkeys { get; set; } = [];
 
-  public Command GetMonkeysCommand { get; }
-
   public MonkeyViewModel(MonkeyService monkeyService)
   {
     Title = "Monkey Finder";
     this.monkeyService = monkeyService;
-    GetMonkeysCommand = new Command(
-      async () => await GetMonkeysAsync());
   }
-
+  [RelayCommand]
   private async Task GetMonkeysAsync()
   {
     if (IsBusy)
